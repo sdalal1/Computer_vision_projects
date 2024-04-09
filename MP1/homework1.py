@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
-im = plt.imread('gun.bmp', format='bmp').copy()
+im = plt.imread('./MP1/gun.bmp', format='bmp').copy()
 
 label = np.zeros((im.shape[0], im.shape[1]), dtype=int)
 area_count = 1
@@ -41,6 +41,17 @@ for count in range(0,35):
         if label[i,j+1] != 0:
           label[i,j] = min(label[i,j], label[i,j+1])
 
+sorted_label = np.sort(np.unique(label))
+print((sorted_label))
+
+for i in range(len(sorted_label)):
+  count = np.sum(label == sorted_label[i])
+  if count < 230:
+    for x in range(0,label.shape[0]):
+      for y in range(0,label.shape[1]):
+        if label[x,y] == sorted_label[i]:
+          label[x,y] = 0
+          
 for x in range(0,label.shape[0]):
   for y in range(0,label.shape[1]):
     if label[x,y] == 0:
@@ -50,9 +61,7 @@ for x in range(0,label.shape[0]):
     if label[x,y] > 5 and label[x,y]< 10:
       label[x,y] += 400
 
-sorted_label = np.sort(np.unique(label))
-print((sorted_label))
-# np.savetxt("foo1.csv", label, fmt='%i', delimiter=",")
+# # np.savetxt("foo1.csv", label, fmt='%i', delimiter=",")
 fig, axes = plt.subplots(1, 2, figsize=(10, 5))
 
 axes[0].imshow(label)
