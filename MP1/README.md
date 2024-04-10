@@ -1,4 +1,4 @@
-# Writeup for Homework 1
+# Writeup for Homework 1 - Connect Component Labeling
 
 ### Overview
 The objective of this MP was to perform the first task of image manipulation, which is connected component labeling. This task is executed using a sequential algorithm, which can also be implemented using "breadth-first search" or "depth-first search". Here, the image is considered to be a large grid, with each grid representing the image data at that point. Typically, the data at each point is in the form [r, g, b, a], where each number ranges between [0, 255] and represents the color density at that location. The images are formatted as ".bmp", where the image data represents either white [255, 255, 255, 255] or black [0, 0, 0, 255].
