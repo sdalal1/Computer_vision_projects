@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-image = plt.imread('./MP2/gun.bmp', format='bmp').copy()
+image = plt.imread('./MP2/palm.bmp', format='bmp').copy()
 image_map = np.zeros((image.shape[0], image.shape[1]), dtype=int)
 for i in range(0, image.shape[0]):
   for j in range(0, image.shape[1]):
@@ -60,32 +60,37 @@ def boundary(im):
   return im_bin
 
 ######SETUP FOR PALM IMAGE######
-### im_bin = dilate(dilate(dilate(dilate(image_map, 5), 3),3),3)
-### im_bin = close(image_map, 3)
-### im_bin = dilate(dilate(image_map, 5), 5)
-### im_bin = open(im_bin, 3)
-### im_bin = boundary(im_bin)
+# im_bin = dilate(dilate(dilate(dilate(image_map, 5), 3),3),3)
+# im_bin = close(image_map, 3)
+# im_bin = dilate(dilate(image_map, 5), 5)
+# im_bin = open(im_bin, 3)
+# im_bou = boundary(im_bin)
 
 ######SETUP FOR GUN IMAGE######
-im_bin = dilate(image_map, 5)
-im_bin = erode(im_bin, 5)
-im_bin = close(im_bin, 3)
-im_bin = open(im_bin, 3)
-im_bin = close(im_bin, 3)
-im_bin = dilate(im_bin, 3)
-im_bin = dilate(im_bin, 2)
-im_bin = close(im_bin, 5)
-im_bin = boundary(im_bin)
+# im_bin = dilate(image_map, 5)
+# im_bin = erode(im_bin, 5)
+# im_bin = close(im_bin, 3)
+# im_bin = open(im_bin, 3)
+# im_bin = close(im_bin, 3)
+# im_bin = dilate(im_bin, 3)
+# im_bin = dilate(im_bin, 2)
+# im_bin = close(im_bin, 5)
+# im_bou = boundary(im_bin)
 
-fig, axes = plt.subplots(1, 2, figsize=(10, 5))
+# im_bin = dilate(image_map, 3)
+fig, axes = plt.subplots(1, 3, figsize=(10, 5))
 
-axes[0].imshow(im_bin, cmap='binary')
-axes[0].set_title('Dialated Image')
+axes[0].imshow(im_bou, cmap='binary')
+axes[0].set_title('Boundary Image')
 axes[0].axis('off')
-# Plot the original image on the second subplot
-axes[1].imshow(image_map, cmap='binary')
-axes[1].set_title('Original Image')
+
+axes[1].imshow(im_bin, cmap='binary')
+axes[1].set_title('Processed Image')
 axes[1].axis('off')
+# Plot the original image on the second subplot
+axes[2].imshow(image_map, cmap='binary')
+axes[2].set_title('Original Image')
+axes[2].axis('off')
 
 # Adjust layout to prevent overlapping
 plt.tight_layout()
