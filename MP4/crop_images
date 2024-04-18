@@ -1,0 +1,42 @@
+import cv2
+import os
+
+def crop_and_save(image_path, output_dir, crop_size=(100, 100), stride=50, hsv_range=None):
+    # Read the image
+    image = cv2.imread(image_path)
+    print(image.shape)
+    # Ensure output directory exists
+    os.makedirs(output_dir, exist_ok=True)
+
+    # Get dimensions of the image
+    height, width, _ = image.shape
+
+    # Iterate through the image and crop regions
+    for y in range(0, height - crop_size[1] + 1, stride):
+        for x in range(0, width - crop_size[0] + 1, stride):
+            # Crop the region
+            crop = image[y:y+crop_size[1], x:x+crop_size[0]]
+
+            # Convert the cropped region to HSV color space
+            crop_hsv = cv2.cvtColor(crop, cv2.COLOR_BGR2HSV)
+            # Check if HSV values are within the specified range (if provided)
+            if hsv_range is not None:
+                h_min, s_min, v_min = hsv_range[0]
+                h_max, s_max, v_max = hsv_range[1]
+                if not ((h_min <= crop_hsv[..., 0].mean() <= h_max) and
+                        (s_min <= crop_hsv[..., 1].mean() <= s_max) and
+                        (v_min <= crop_hsv[..., 2].mean() <= v_max)):
+                    continue  # Skip saving if HSV values are not within the specified range
+
+            # Save the cropped image
+            filename = os.path.join(output_dir, f"crop_{x}_{y}.png")
+            cv2.imwrite(filename, crop)
+
+# Example usage
+image_path = "./MP4/gun1.bmp"
+output_dir = "./MP4/crops"
+crop_size = (20, 20)  # Size of the cropped region
+stride = 10  # Stride for sliding window
+hsv_range = ((0, 20, 50), (30, 255, 255))  # Example HSV range (Hue: 0-20, Saturation: 50-255, Value: 50-255)
+
+crop_and_save(image_path, output_dir, crop_size, stride, hsv_range)
