@@ -60,11 +60,11 @@ def boundary(im):
   return im_bin
 
 ######SETUP FOR PALM IMAGE######
-# im_bin = dilate(dilate(dilate(dilate(image_map, 5), 3),3),3)
-# im_bin = close(image_map, 3)
-# im_bin = dilate(dilate(image_map, 5), 5)
-# im_bin = open(im_bin, 3)
-# im_bou = boundary(im_bin)
+im_bin = dilate(dilate(dilate(dilate(image_map, 5), 3),3),3)
+im_bin = close(image_map, 3)
+im_bin = dilate(dilate(image_map, 5), 5)
+im_bin = open(im_bin, 3)
+im_bou = boundary(im_bin)
 
 ######SETUP FOR GUN IMAGE######
 # im_bin = dilate(image_map, 5)
