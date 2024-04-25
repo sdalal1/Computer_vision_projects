@@ -19,6 +19,7 @@ path = './MP4/crops/*.png'
 
 images = [cv2.cvtColor(cv2.imread(file),cv2.COLOR_BGR2HSV) for file in glob.glob(path)]
 x_edges, y_edges = training_histogram(images)
+
 histo = np.zeros((181,256))
 for x,y in zip(x_edges, y_edges):
     np.add.at(histo, (x.astype(int), y.astype(int)), 1)
@@ -35,7 +36,6 @@ img_new = img.copy()
 for i in range(img.shape[0]):
     for j in range(img.shape[1]):
         if histo[h[i, j], s[i, j]] < 15.1:
-            # print("here")
             img_new[i, j] = [0, 0, 0]
 
 # fig, ax = plt.subplots(1, 2, figsize=(12, 6))
@@ -54,5 +54,5 @@ plt.colorbar(label='Frequency')
 plt.xlabel('Hue')
 plt.ylabel('Saturation')
 plt.title('2D Histogram of HSV Values')
-plt.grid(True, linestyle='--', alpha=0.5)  # Add grid lines
+plt.grid(True, linestyle='--', alpha=1.0)  # Add grid lines
 plt.show()
