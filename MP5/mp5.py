@@ -133,80 +133,84 @@ def CannyEdgeDetection(image, n, sigma, percentageofNonEdge):
     return Edge_link
 
 
-# Load the image
-image = plt.imread('MP5/lena.bmp', format='bmp')
-img_copy = image.copy()
-# Convert image to grayscale if it's RGB
-if len(image.shape) == 3:
-    image = np.mean(image, axis=2)
+def main():
+    # Load the image
+    image = plt.imread('MP5/lena.bmp', format='bmp')
+    img_copy = image.copy()
+    # Convert image to grayscale if it's RGB
+    if len(image.shape) == 3:
+        image = np.mean(image, axis=2)
 
-# Set kernel size and sigma (standard deviation)
-# kernel_size = 5 #- gun
-# sigma = 0.5 #- gun
-# percentageofNonEdge = 0.65 #- gun
+    # Set kernel size and sigma (standard deviation)
+    # kernel_size = 5 #- gun
+    # sigma = 0.5 #- gun
+    # percentageofNonEdge = 0.65 #- gun
 
-kernel_size = 5 # lena
-sigma = 0.8 # lena
-percentageofNonEdge = 0.7 # lena
-
-
-# kernel_size = 3 # joy1
-# sigma = 0.8 # joy1
-# percentageofNonEdge = 0.5 # joy1
-
-# kernel_size = 5 #pointer 
-# sigma = 1.5 # pointer
-# percentageofNonEdge = 0.56 # pointer
-
-# kernel_size = 3  #test
-# sigma = 20 # test
-# percentageofNonEdge = 0.9 # test
+    kernel_size = 5 # lena
+    sigma = 0.8 # lena
+    percentageofNonEdge = 0.7 # lena
 
 
-# Apply Gaussian blur
-blurred_image = gaussian_blur(image, kernel_size, sigma)
-gradient = ImageGradient(blurred_image)
-threshold_low, threshold_high = FindThreshold(gradient[0], percentageofNonEdge)
-print(threshold_low, threshold_high)
-maxima_supression = NonMaximaSupress(gradient[0], gradient[1], 'simple')
-Edge_link = EdgeLinking(maxima_supression > threshold_low, maxima_supression > threshold_high)
+    # kernel_size = 3 # joy1
+    # sigma = 0.8 # joy1
+    # percentageofNonEdge = 0.5 # joy1
+
+    # kernel_size = 5 #pointer 
+    # sigma = 1.5 # pointer
+    # percentageofNonEdge = 0.56 # pointer
+
+    # kernel_size = 3  #test
+    # sigma = 20 # test
+    # percentageofNonEdge = 0.9 # test
 
 
-fig, ax = plt.subplots(2, 4, figsize=(14, 6))
-
-ax[0, 0].imshow(img_copy)
-ax[0, 0].set_title('Original Image')
-ax[0, 0].axis('off')
-
-ax[0, 1].imshow(blurred_image, cmap='gray')
-ax[0, 1].set_title('Blurred Image')
-ax[0, 1].axis('off')
-
-ax[0, 2].imshow(gradient[0], cmap='gray')
-ax[0, 2].set_title('Gradient Magnitude')
-ax[0, 2].axis('off')
-
-ax[0, 3].imshow(gradient[1], cmap='gray')
-ax[0, 3].set_title('Gradient Angle')
-ax[0, 3].axis('off')
-
-ax[1, 0].imshow(maxima_supression, cmap='gray')
-ax[1, 0].set_title('Non-Maxima Suppression')
-ax[1, 0].axis('off')
-
-ax[1, 1].imshow(maxima_supression > threshold_low , cmap='gray')
-ax[1, 1].set_title('Low Edge Threshold')
-ax[1, 1].axis('off')
-
-ax[1, 2].imshow(maxima_supression > threshold_high, cmap='gray')
-ax[1, 2].set_title('High Edge Threshold')
-ax[1, 2].axis('off')
-
-# ax[1, 3].imshow((maxima_supression > threshold_low) + (maxima_supression > threshold_high), cmap='gray')
-
-ax[1, 3].imshow(Edge_link, cmap='gray')
-ax[1, 3].set_title('Edge Linking')
-ax[1, 3].axis('off')
+    # Apply Gaussian blur
+    blurred_image = gaussian_blur(image, kernel_size, sigma)
+    gradient = ImageGradient(blurred_image)
+    threshold_low, threshold_high = FindThreshold(gradient[0], percentageofNonEdge)
+    print(threshold_low, threshold_high)
+    maxima_supression = NonMaximaSupress(gradient[0], gradient[1], 'simple')
+    Edge_link = EdgeLinking(maxima_supression > threshold_low, maxima_supression > threshold_high)
 
 
-plt.show()
+    fig, ax = plt.subplots(2, 4, figsize=(14, 6))
+
+    ax[0, 0].imshow(img_copy)
+    ax[0, 0].set_title('Original Image')
+    ax[0, 0].axis('off')
+
+    ax[0, 1].imshow(blurred_image, cmap='gray')
+    ax[0, 1].set_title('Blurred Image')
+    ax[0, 1].axis('off')
+
+    ax[0, 2].imshow(gradient[0], cmap='gray')
+    ax[0, 2].set_title('Gradient Magnitude')
+    ax[0, 2].axis('off')
+
+    ax[0, 3].imshow(gradient[1], cmap='gray')
+    ax[0, 3].set_title('Gradient Angle')
+    ax[0, 3].axis('off')
+
+    ax[1, 0].imshow(maxima_supression, cmap='gray')
+    ax[1, 0].set_title('Non-Maxima Suppression')
+    ax[1, 0].axis('off')
+
+    ax[1, 1].imshow(maxima_supression > threshold_low , cmap='gray')
+    ax[1, 1].set_title('Low Edge Threshold')
+    ax[1, 1].axis('off')
+
+    ax[1, 2].imshow(maxima_supression > threshold_high, cmap='gray')
+    ax[1, 2].set_title('High Edge Threshold')
+    ax[1, 2].axis('off')
+
+    # ax[1, 3].imshow((maxima_supression > threshold_low) + (maxima_supression > threshold_high), cmap='gray')
+
+    ax[1, 3].imshow(Edge_link, cmap='gray')
+    ax[1, 3].set_title('Edge Linking')
+    ax[1, 3].axis('off')
+
+
+    plt.show()
+
+if __name__ == "__main__":
+    main()
