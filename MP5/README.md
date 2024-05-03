@@ -3,6 +3,10 @@
 ## Overview
 Canny Edge Detection is a widely used image processing technique for detecting edges while suppressing noise. It comprises multiple stages, including Gaussian blurring, gradient calculation, thresholding, non-maxima suppression, and edge linking.
 
+## Packages Used
+- NumPy: Utilized for numerical operations and array manipulation.
+- Matplotlib: Employed for plotting images and detected lines.
+
 ## Algorithms
 
 ### Gaussian Blurring
