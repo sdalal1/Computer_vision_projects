@@ -46,12 +46,15 @@ This function uses cv2 where it takes in a list of images and then converts it t
 The resulting videos will be attached with the pdf:
 
 1. ssd
+
 ![](./assets/video_ssd.mp4)
 
 2. cc
+
 ![](./assets/video_cc.mp4)
 
 3. ncc
+
 ![](./assets/video_ncc.mp4)
 
 ## Result Analysis
@@ -81,12 +84,15 @@ This worked well till the lady turns around the x,y location then finds the blac
 The videos video_Test_ssd, video_Test_ncc and video_Test_cc are implementation of these method with all three methods. The cc method seems to be still very error prone but it can be seen that it tries to follow the person. The function is called weighted temp and some lines commented out in the code where I implemented it.
 
 a. ssd
+
 ![](./assets/video_Test_ssd.mp4)
 
 b. ncc
+
 ![](./assets/video_Test_ncc.mp4)
 
 c. cc
+
 ![](./assets/video_Test_cc.mp4)
 
 This method can be made more robust by being able to calculate the weights of the template and the image at each step considering what will come next. This seems like a good implementation of learning algorithms and usually will be achieved by that. 
